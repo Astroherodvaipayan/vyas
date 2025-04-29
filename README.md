@@ -22,7 +22,7 @@ In the evolving landscape of LLMs, the demand for vast amounts of training data,
 Subsequently, we meticulously crafted datasets, distributed them accordingly, and delineated the stages of our process:
 
 - **Pre-training:** 500 Million tokens
-- **Bilingual Next Token Prediction/Translation:** ~300 Million tokens
+- **trilingual Next Token Prediction/Translation:** ~300 Million tokens
 - **Instruct Finetuning/DPO Finetuning:** ~200 Million tokens
 
 This deliberate approach laid the foundation for VED-AI's development, pushing the boundaries of language adaptability within the realm of LLMs.
@@ -51,21 +51,21 @@ While we acknowledge that our ongoing testing may refine these observations, thi
 
 It's worth mentioning that the weights of the fully fine-tuned model are now available on [Hugging Face](https://huggingface.co/astrohero/VED-AI/tree/main)🤗 -https://huggingface.co/astrohero/VED-AI/tree/main, contributing to the open-source knowledge sharing within the community.
 
-## Bilingual Next Token Prediction and Translation
+## trilingual Next Token Prediction and Translation
 
-**Bilingual Next Token Prediction**
+**trilingual Next Token Prediction**
 
-This phase, inspired by the open Hathi series by [sarvam.ai](http://sarvam.ai/), was an unplanned yet pivotal addition to our training strategy. Creating a dataset of 200,000 tokens, we utilized Lora for fine-tuning, aiming to equip the model with enhanced language understanding. As we progressed, our focus shifted towards instilling 'world knowledge' in Kannada. Given the scarcity of Kannada content, especially compared to English, we turned to translation. Leveraging IndicTrans2, we translated English content, primarily sourced from Wikipedia, into Kannada. However, instead of conventional monolingual next token prediction, we introduced a groundbreaking approach — bilingual next token prediction. Alternating sentences between Kannada and English, this method compelled the model to cross-lingually attend to information during next-token prediction. This nuanced approach not only fostered increased alignment between Kannada and English but also naturally balanced exposure to Hindi and English tokens during training. This stage added an extra layer of sophistication to VED-AI's training journey.
+This phase, inspired by the open Hathi series by [sarvam.ai](http://sarvam.ai/), was an unplanned yet pivotal addition to our training strategy. Creating a dataset of 200,000 tokens, we utilized Lora for fine-tuning, aiming to equip the model with enhanced language understanding. As we progressed, our focus shifted towards instilling 'world knowledge' in Kannada. Given the scarcity of Kannada content, especially compared to English, we turned to translation. Leveraging IndicTrans2, we translated English content, primarily sourced from Wikipedia, into hindi & Kannada. However, instead of conventional monolingual next token prediction, we introduced a groundbreaking approach — trilingual next token prediction. Alternating sentences between Kannada and English, this method compelled the model to cross-lingually attend to information during next-token prediction. This nuanced approach not only fostered increased alignment between Kannada and English but also naturally balanced exposure to Hindi and English tokens during training. This stage added an extra layer of sophistication to VED-AI's training journey.
 
 **Translation Finetuning**
 
-The intention behind this phase was to establish a coherent relationship between English and corresponding Kannada tokens. Employing low-rank adaptation for fine-tuning, we encountered some challenges, notably with the decision to use a very low-rank value, which proved less effective. With a dataset size of 100,000 tokens, this stage presented limitations, and we acknowledge the need for improvements. As we refine this aspect of the training process, our commitment to enhancing the bilingual capabilities of VED-AI remains unwavering.
+The intention behind this phase was to establish a coherent relationship between English and corresponding hindi & Kannada tokens. Employing low-rank adaptation for fine-tuning, we encountered some challenges, notably with the decision to use a very low-rank value, which proved less effective. With a dataset size of 100,000 tokens, this stage presented limitations, and we acknowledge the need for improvements. As we refine this aspect of the training process, our commitment to enhancing the trilingual capabilities of VED-AI remains unwavering.
 
-## Bilingual Instruct Fine-tuning
+## trilingual Instruct Fine-tuning
 
-**Bilingual Instruct Fine-tuning**
+**trilingual Instruct Fine-tuning**
 
-In this pivotal stage, we employed supervised fine-tuning with low-rank adaptation to mold the model's responsiveness. Embracing a chat template structure consisting of user prompts/instructions and corresponding responses, we ventured into the realm of Bilingual Instruct Fine-tuning. This approach involved training the model to adeptly respond in either English or Kannada based on the language specified in the user prompt or instruction.
+In this pivotal stage, we employed supervised fine-tuning with low-rank adaptation to mold the model's responsiveness. Embracing a chat template structure consisting of user prompts/instructions and corresponding responses, we ventured into the realm of trilingual Instruct Fine-tuning. This approach involved training the model to adeptly respond in either English or Kannada based on the language specified in the user prompt or instruction.
 
 Chat Template
 
@@ -85,7 +85,7 @@ For instance, given a user prompt like
 > Response
 > 
 
-the model seamlessly generates a response in Kannada, maintaining linguistic coherence. To enrich the training process, we amalgamated various instruction datasets, including [Alpaca Instruct](https://huggingface.co/datasets/tatsu-lab/alpaca), [Dolly Instruct](https://huggingface.co/datasets/c-s-ale/dolly-15k-instruction-alpaca-format), and more. Leveraging translation APIs such as Google, Azure, and a custom deployment of the IndicTrans2 model from [ai4bharat](https://ai4bharat.iitm.ac.in/), we crafted a comprehensive bilingual instruct dataset.
+the model seamlessly generates a response in Kannada, maintaining linguistic coherence. To enrich the training process, we amalgamated various instruction datasets, including [Alpaca Instruct](https://huggingface.co/datasets/tatsu-lab/alpaca), [Dolly Instruct](https://huggingface.co/datasets/c-s-ale/dolly-15k-instruction-alpaca-format), and more. Leveraging translation APIs such as Google, Azure, and a custom deployment of the IndicTrans2 model from [ai4bharat](https://ai4bharat.iitm.ac.in/), we crafted a comprehensive trilingual instruct dataset.
 
 The dataset, now publicly available on Hugging Face [here](https://huggingface.co/datasets/VED-AI-Lab/Kannada-Instruct-dataset), encompasses diverse linguistic scenarios. During training, we implemented supervised fine-tuning with four distinct representations:
 
